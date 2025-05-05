@@ -8,8 +8,8 @@
  * Author URI:        https://lytathanh.com/ (Thay bằng URL của bạn)
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       fczb
- * Domain Path:       /languages
+ * Text Domain:       lytatthanh
+ * Domain Path:       /vietnamese
  */
 
 // Ngăn chặn truy cập trực tiếp
