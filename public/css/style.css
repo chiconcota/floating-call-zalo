@@ -1,1 +1,82 @@
+/* Floating Call Zalo Buttons Styles */
 
+.fczb-container {
+    position: fixed;
+    bottom: 20px; /* Khoảng cách từ dưới */
+    z-index: 9999;
+    display: flex; /* Sắp xếp các nút theo hàng ngang hoặc dọc nếu muốn */
+    flex-direction: column; /* Các nút xếp chồng lên nhau */
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+/* Vị trí */
+.fczb-container.fczb-pos-bottom-right {
+    right: 20px; /* Khoảng cách từ phải */
+    align-items: flex-end; /* Căn chỉnh nút sang phải nếu xếp dọc */
+}
+
+.fczb-container.fczb-pos-bottom-left {
+    left: 20px; /* Khoảng cách từ trái */
+     align-items: flex-start; /* Căn chỉnh nút sang trái nếu xếp dọc */
+}
+
+/* Kiểu dáng nút chung */
+.fczb-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Kích thước nút */
+    height: 50px; /* Kích thước nút */
+    border-radius: 50%; /* Bo tròn thành hình tròn */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: #ffffff; /* Màu chữ/icon mặc định */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.fczb-button:hover {
+    transform: scale(1.1); /* Hiệu ứng phóng to khi hover */
+     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Nút Gọi */
+.fczb-call-button {
+    background-color: #007bff; /* Màu nền xanh dương */
+}
+.fczb-call-button .dashicons {
+    font-size: 24px; /* Kích thước icon */
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+
+/* Nút Zalo */
+.fczb-zalo-button {
+    background-color: #0068ff; /* Màu nền Zalo */
+}
+.fczb-zalo-button .fczb-zalo-icon-img {
+    width: 28px; /* Điều chỉnh kích thước ảnh icon Zalo */
+    height: 28px;
+    object-fit: contain; /* Đảm bảo ảnh không bị méo */
+}
+.fczb-zalo-button .fczb-zalo-icon-text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* Media Queries được xử lý bằng inline style trong file PHP chính
+   để bật/tắt dựa trên cài đặt, bạn có thể bỏ qua phần này nếu dùng cách đó
+   hoặc dùng class để kiểm soát hoàn toàn bằng CSS như ví dụ dưới */
+
+/* Ví dụ nếu dùng class CSS để ẩn hiện */
+/*
+.fczb-container.fczb-display-mobile-only { display: none; }
+.fczb-container.fczb-display-desktop-only { display: flex; }
+
+@media (max-width: 768px) {
+    .fczb-container.fczb-display-mobile-only { display: flex; }
+    .fczb-container.fczb-display-desktop-only { display: none; }
+}
+*/
