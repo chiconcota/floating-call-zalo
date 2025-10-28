@@ -112,6 +112,16 @@ function fczb_register_settings() {
         [ 'id' => 'fczb_phone_number', 'label_for' => 'fczb_phone_number', 'desc' => __('Nhập số điện thoại đầy đủ, ví dụ: 0912345678', 'fczb') ]
     );
 
+    // Field: Màu nút Gọi (hex)
+    add_settings_field(
+        'fczb_call_color',
+        __( 'Màu nút Gọi (HEX)', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_call_button_section',
+        [ 'id' => 'fczb_call_color', 'label_for' => 'fczb_call_color', 'desc' => __('Nhập mã màu HEX cho nút Gọi, ví dụ: #007bff', 'fczb') ]
+    );
+
     // --- Cài đặt Nút Zalo ---
      add_settings_field(
         'fczb_enable_zalo_button',
@@ -136,6 +146,16 @@ function fczb_register_settings() {
         'fczb_settings_page',
         'fczb_zalo_button_section',
         [ 'id' => 'fczb_zalo_icon_url', 'label_for' => 'fczb_zalo_icon_url', 'desc' => __('Để trống nếu muốn dùng chữ "Zalo". Nhập URL ảnh icon Zalo nếu có.', 'fczb') ]
+    );
+
+    // Field: Màu nút Zalo (hex)
+    add_settings_field(
+        'fczb_zalo_color',
+        __( 'Màu nút Zalo (HEX)', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_zalo_button_section',
+        [ 'id' => 'fczb_zalo_color', 'label_for' => 'fczb_zalo_color', 'desc' => __('Nhập mã màu HEX cho nút Zalo, ví dụ: #0068ff', 'fczb') ]
     );
 
 }
@@ -215,6 +235,22 @@ function fczb_sanitize_settings( $input ) {
              // Giá trị mặc định nếu không hợp lệ (ví dụ: lấy giá trị đầu tiên)
             $sanitized_input[$key] = reset($allowed_values);
         }
+    }
+
+    // Sanitize color fields (hex) with sensible defaults
+    // Defaults match the colors used in CSS: call = #007bff, zalo = #0068ff
+    if ( isset( $input['fczb_call_color'] ) ) {
+        $call_color = sanitize_hex_color( $input['fczb_call_color'] );
+        $sanitized_input['fczb_call_color'] = $call_color ? $call_color : '#007bff';
+    } else {
+        $sanitized_input['fczb_call_color'] = '#007bff';
+    }
+
+    if ( isset( $input['fczb_zalo_color'] ) ) {
+        $zalo_color = sanitize_hex_color( $input['fczb_zalo_color'] );
+        $sanitized_input['fczb_zalo_color'] = $zalo_color ? $zalo_color : '#0068ff';
+    } else {
+        $sanitized_input['fczb_zalo_color'] = '#0068ff';
     }
 
 

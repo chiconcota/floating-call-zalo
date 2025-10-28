@@ -19,6 +19,8 @@ function fczb_display_buttons() {
     $position           = isset( $options['fczb_button_position'] ) ? $options['fczb_button_position'] : 'bottom-right';
     $display_on         = isset( $options['fczb_display_on'] ) ? $options['fczb_display_on'] : 'all';
     $zalo_icon_url      = isset( $options['fczb_zalo_icon_url'] ) ? $options['fczb_zalo_icon_url'] : '';
+    $call_color         = isset( $options['fczb_call_color'] ) && $options['fczb_call_color'] ? $options['fczb_call_color'] : '#007bff';
+    $zalo_color         = isset( $options['fczb_zalo_color'] ) && $options['fczb_zalo_color'] ? $options['fczb_zalo_color'] : '#0068ff';
 
     // Chỉ hiển thị nếu plugin được bật và có ít nhất 1 nút được bật
     if ( ! $enable_plugin || ( ! $enable_call && ! $enable_zalo ) ) {
@@ -42,13 +44,13 @@ function fczb_display_buttons() {
     ?>
     <div class="fczb-container <?php echo esc_attr( $position_class ); ?> <?php echo esc_attr($display_class); ?>">
         <?php if ( $enable_call && $call_link != '#' ) : ?>
-            <a href="<?php echo esc_url( $call_link ); ?>" class="fczb-button fczb-call-button" aria-label="<?php esc_attr_e( 'Gọi điện thoại', 'fczb' ); ?>">
+            <a href="<?php echo esc_url( $call_link ); ?>" class="fczb-button fczb-call-button" aria-label="<?php esc_attr_e( 'Gọi điện thoại', 'fczb' ); ?>" <?php echo $call_color ? 'style="background-color: ' . esc_attr( $call_color ) . ';"' : ''; ?>>
                 <span class="dashicons dashicons-phone"></span>
             </a>
         <?php endif; ?>
 
         <?php if ( $enable_zalo && $zalo_link != '#' ) : ?>
-            <a href="<?php echo esc_url( $zalo_link ); ?>" target="_blank" rel="noopener noreferrer" class="fczb-button fczb-zalo-button" aria-label="<?php esc_attr_e( 'Chat qua Zalo', 'fczb' ); ?>">
+            <a href="<?php echo esc_url( $zalo_link ); ?>" target="_blank" rel="noopener noreferrer" class="fczb-button fczb-zalo-button" aria-label="<?php esc_attr_e( 'Chat qua Zalo', 'fczb' ); ?>" <?php echo $zalo_color ? 'style="background-color: ' . esc_attr( $zalo_color ) . ';"' : ''; ?>>
                 <?php if ( ! empty( $zalo_icon_url ) ) : ?>
                     <img src="<?php echo esc_url( $zalo_icon_url ); ?>" alt="<?php esc_attr_e( 'Zalo', 'fczb' ); ?>" class="fczb-zalo-icon-img">
                 <?php else : ?>

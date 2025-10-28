@@ -18,6 +18,12 @@ The **Floating Call and Zalo Buttons** WordPress plugin displays fixed floating 
 2. Enable the plugin and configure the display options (e.g., mobile-only, desktop-only, or all devices).
 3. Save the settings. The floating buttons will appear on your website.
 
+### New: Button color customization
+- Two new settings were added under the respective button sections in the settings page:
+	- "Màu nút Gọi (HEX)" — set the call button color (hex), default `#007bff`.
+	- "Màu nút Zalo (HEX)" — set the Zalo button color (hex), default `#0068ff`.
+These accept standard HEX color values (e.g. `#ff0000`). If left blank or invalid, defaults are used.
+
 ## Files Structure
 - `floating-call-zalo-buttons.php`: Main plugin file.
 - `admin/settings-page.php`: Contains the code for the settings page in the WordPress admin panel.
