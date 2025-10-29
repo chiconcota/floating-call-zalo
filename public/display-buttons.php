@@ -14,13 +14,19 @@ function fczb_display_buttons() {
     $enable_plugin      = isset( $options['fczb_enable_plugin'] ) ? $options['fczb_enable_plugin'] : 0;
     $enable_call        = isset( $options['fczb_enable_call_button'] ) ? $options['fczb_enable_call_button'] : 0;
     $enable_zalo        = isset( $options['fczb_enable_zalo_button'] ) ? $options['fczb_enable_zalo_button'] : 0;
+    $enable_email       = isset( $options['fczb_enable_email_button'] ) ? $options['fczb_enable_email_button'] : 0;
+    $enable_sms         = isset( $options['fczb_enable_sms_button'] ) ? $options['fczb_enable_sms_button'] : 0;
     $phone_number       = isset( $options['fczb_phone_number'] ) ? $options['fczb_phone_number'] : '';
     $zalo_number        = isset( $options['fczb_zalo_number'] ) ? $options['fczb_zalo_number'] : '';
+    $email_address      = isset( $options['fczb_email_address'] ) ? $options['fczb_email_address'] : '';
+    $sms_number         = isset( $options['fczb_sms_number'] ) ? $options['fczb_sms_number'] : '';
     $position           = isset( $options['fczb_button_position'] ) ? $options['fczb_button_position'] : 'bottom-right';
     $display_on         = isset( $options['fczb_display_on'] ) ? $options['fczb_display_on'] : 'all';
     $zalo_icon_url      = isset( $options['fczb_zalo_icon_url'] ) ? $options['fczb_zalo_icon_url'] : '';
     $call_color         = isset( $options['fczb_call_color'] ) && $options['fczb_call_color'] ? $options['fczb_call_color'] : '#007bff';
     $zalo_color         = isset( $options['fczb_zalo_color'] ) && $options['fczb_zalo_color'] ? $options['fczb_zalo_color'] : '#0068ff';
+    $email_color        = isset( $options['fczb_email_color'] ) && $options['fczb_email_color'] ? $options['fczb_email_color'] : '#28a745';
+    $sms_color          = isset( $options['fczb_sms_color'] ) && $options['fczb_sms_color'] ? $options['fczb_sms_color'] : '#dc3545';
 
     // Chỉ hiển thị nếu plugin được bật và có ít nhất 1 nút được bật
     if ( ! $enable_plugin || ( ! $enable_call && ! $enable_zalo ) ) {
@@ -56,6 +62,22 @@ function fczb_display_buttons() {
                 <?php else : ?>
                     <span class="fczb-zalo-icon-text">Zalo</span> <?php // Hoặc dùng icon SVG/font nếu muốn ?>
                 <?php endif; ?>
+            </a>
+        <?php endif; ?>
+
+        <?php if ( $enable_email && $email_address ) : ?>
+            <a href="<?php echo esc_url( 'mailto:' . $email_address ); ?>" class="fczb-button fczb-email-button" aria-label="<?php esc_attr_e( 'Gửi Email', 'fczb' ); ?>" <?php echo $email_color ? 'style="background-color: ' . esc_attr( $email_color ) . ';"' : ''; ?>>
+                <span class="dashicons dashicons-email"></span>
+            </a>
+        <?php endif; ?>
+
+        <?php if ( $enable_sms && $sms_number ) : ?>
+            <?php 
+            $sms_link_number = preg_replace('/\D/', '', $sms_number);
+            $sms_link = $sms_link_number ? 'sms:' . $sms_link_number : '#';
+            ?>
+            <a href="<?php echo esc_url( $sms_link ); ?>" class="fczb-button fczb-sms-button" aria-label="<?php esc_attr_e( 'Gửi SMS', 'fczb' ); ?>" <?php echo $sms_color ? 'style="background-color: ' . esc_attr( $sms_color ) . ';"' : ''; ?>>
+                <span class="dashicons dashicons-admin-comments"></span>
             </a>
         <?php endif; ?>
     </div>

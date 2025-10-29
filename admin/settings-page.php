@@ -48,6 +48,22 @@ function fczb_register_settings() {
         'fczb_settings_page'
     );
 
+    // Section Nút Email
+    add_settings_section(
+        'fczb_email_button_section',
+        __( 'Cài đặt Nút Email', 'fczb' ),
+        null,
+        'fczb_settings_page'
+    );
+
+    // Section Nút SMS
+    add_settings_section(
+        'fczb_sms_button_section',
+        __( 'Cài đặt Nút SMS', 'fczb' ),
+        null,
+        'fczb_settings_page'
+    );
+
     // Field: Bật Plugin
     add_settings_field(
         'fczb_enable_plugin',
@@ -158,6 +174,58 @@ function fczb_register_settings() {
         [ 'id' => 'fczb_zalo_color', 'label_for' => 'fczb_zalo_color', 'desc' => __('Nhập mã màu HEX cho nút Zalo, ví dụ: #0068ff', 'fczb') ]
     );
 
+    // --- Cài đặt Nút Email ---
+    add_settings_field(
+        'fczb_enable_email_button',
+        __( 'Bật Nút Email', 'fczb' ),
+        'fczb_render_checkbox_field',
+        'fczb_settings_page',
+        'fczb_email_button_section',
+        [ 'id' => 'fczb_enable_email_button', 'label_for' => 'fczb_enable_email_button' ]
+    );
+    add_settings_field(
+        'fczb_email_address',
+        __( 'Địa chỉ Email', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_email_button_section',
+        [ 'id' => 'fczb_email_address', 'label_for' => 'fczb_email_address', 'desc' => __('Nhập địa chỉ email, ví dụ: example@domain.com', 'fczb') ]
+    );
+    add_settings_field(
+        'fczb_email_color',
+        __( 'Màu nút Email (HEX)', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_email_button_section',
+        [ 'id' => 'fczb_email_color', 'label_for' => 'fczb_email_color', 'desc' => __('Nhập mã màu HEX cho nút Email, ví dụ: #28a745', 'fczb') ]
+    );
+
+    // --- Cài đặt Nút SMS ---
+    add_settings_field(
+        'fczb_enable_sms_button',
+        __( 'Bật Nút SMS', 'fczb' ),
+        'fczb_render_checkbox_field',
+        'fczb_settings_page',
+        'fczb_sms_button_section',
+        [ 'id' => 'fczb_enable_sms_button', 'label_for' => 'fczb_enable_sms_button' ]
+    );
+    add_settings_field(
+        'fczb_sms_number',
+        __( 'Số điện thoại SMS', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_sms_button_section',
+        [ 'id' => 'fczb_sms_number', 'label_for' => 'fczb_sms_number', 'desc' => __('Nhập số điện thoại để gửi SMS, ví dụ: 0912345678', 'fczb') ]
+    );
+    add_settings_field(
+        'fczb_sms_color',
+        __( 'Màu nút SMS (HEX)', 'fczb' ),
+        'fczb_render_text_field',
+        'fczb_settings_page',
+        'fczb_sms_button_section',
+        [ 'id' => 'fczb_sms_color', 'label_for' => 'fczb_sms_color', 'desc' => __('Nhập mã màu HEX cho nút SMS, ví dụ: #dc3545', 'fczb') ]
+    );
+
 }
 add_action( 'admin_init', 'fczb_register_settings' );
 
@@ -208,13 +276,24 @@ function fczb_sanitize_settings( $input ) {
     $sanitized_input = [];
 
     // Sanitize checkboxes (chuyển thành 0 hoặc 1)
-    $checkboxes = ['fczb_enable_plugin', 'fczb_enable_call_button', 'fczb_enable_zalo_button'];
+    $checkboxes = [
+        'fczb_enable_plugin',
+        'fczb_enable_call_button',
+        'fczb_enable_zalo_button',
+        'fczb_enable_email_button',
+        'fczb_enable_sms_button'
+    ];
     foreach($checkboxes as $cb) {
         $sanitized_input[$cb] = isset( $input[$cb] ) ? 1 : 0;
     }
 
     // Sanitize text fields
-    $text_fields = ['fczb_phone_number', 'fczb_zalo_number'];
+    $text_fields = [
+        'fczb_phone_number',
+        'fczb_zalo_number',
+        'fczb_email_address',
+        'fczb_sms_number'
+    ];
      foreach($text_fields as $tf) {
         $sanitized_input[$tf] = isset( $input[$tf] ) ? sanitize_text_field( $input[$tf] ) : '';
     }
@@ -238,19 +317,20 @@ function fczb_sanitize_settings( $input ) {
     }
 
     // Sanitize color fields (hex) with sensible defaults
-    // Defaults match the colors used in CSS: call = #007bff, zalo = #0068ff
-    if ( isset( $input['fczb_call_color'] ) ) {
-        $call_color = sanitize_hex_color( $input['fczb_call_color'] );
-        $sanitized_input['fczb_call_color'] = $call_color ? $call_color : '#007bff';
-    } else {
-        $sanitized_input['fczb_call_color'] = '#007bff';
-    }
+    $color_fields = [
+        'fczb_call_color' => '#007bff',   // Default blue for Call
+        'fczb_zalo_color' => '#0068ff',   // Default Zalo blue
+        'fczb_email_color' => '#28a745',  // Default green for Email
+        'fczb_sms_color' => '#dc3545'     // Default red for SMS
+    ];
 
-    if ( isset( $input['fczb_zalo_color'] ) ) {
-        $zalo_color = sanitize_hex_color( $input['fczb_zalo_color'] );
-        $sanitized_input['fczb_zalo_color'] = $zalo_color ? $zalo_color : '#0068ff';
-    } else {
-        $sanitized_input['fczb_zalo_color'] = '#0068ff';
+    foreach ($color_fields as $field => $default) {
+        if ( isset( $input[$field] ) ) {
+            $color = sanitize_hex_color( $input[$field] );
+            $sanitized_input[$field] = $color ? $color : $default;
+        } else {
+            $sanitized_input[$field] = $default;
+        }
     }
 
 

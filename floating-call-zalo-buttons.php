@@ -3,7 +3,7 @@
  * Plugin Name:       Floating Call and Zalo Buttons
  * Plugin URI:        https://lytatthanh.com/ (Thay bằng URL của bạn)
  * Description:       Hiển thị nút gọi điện thoại và Zalo nổi cố định trên màn hình.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            lý tất thành
  * Author URI:        https://lytathanh.com/ (Thay bằng URL của bạn)
  * License:           GPL v2 or later

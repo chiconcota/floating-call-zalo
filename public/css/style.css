@@ -65,6 +65,28 @@
     font-weight: bold;
 }
 
+/* Nút Email */
+.fczb-email-button {
+    background-color: #28a745; /* Màu nền mặc định xanh lá */
+}
+.fczb-email-button .dashicons {
+    font-size: 24px;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
+/* Nút SMS */
+.fczb-sms-button {
+    background-color: #dc3545; /* Màu nền mặc định đỏ */
+}
+.fczb-sms-button .dashicons {
+    font-size: 24px;
+    width: auto;
+    height: auto;
+    line-height: 1;
+}
+
 
 /* Media Queries được xử lý bằng inline style trong file PHP chính
    để bật/tắt dựa trên cài đặt, bạn có thể bỏ qua phần này nếu dùng cách đó

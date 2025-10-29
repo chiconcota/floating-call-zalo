@@ -4,7 +4,8 @@
 The **Floating Call and Zalo Buttons** WordPress plugin displays fixed floating buttons for phone calls and Zalo chat on the screen. It allows users to easily contact you via phone or Zalo.
 
 ## Features
-- Display floating buttons for phone calls and Zalo chat.
+- Display floating buttons for phone calls, Zalo chat, email, and SMS.
+- Customize button colors via HEX color codes.
 - Customize visibility for mobile, desktop, or both.
 - Easy-to-use settings page in the WordPress admin panel.
 
